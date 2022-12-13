@@ -7,14 +7,12 @@ class InputBox extends StatefulWidget {
     this.isPassword = false,
     this.inputType,
     this.hint,
-    this.onSubmit,
   });
 
   final TextEditingController controller;
   final bool isPassword;
   final TextInputType? inputType;
   final String? hint;
-  final void Function(String)? onSubmit;
 
   @override
   State<InputBox> createState() => _InputBoxState();
@@ -60,7 +58,6 @@ class _InputBoxState extends State<InputBox> {
           style: const TextStyle(color: Colors.black),
           autocorrect: !widget.isPassword,
           keyboardType: widget.inputType,
-          onFieldSubmitted: widget.onSubmit,
         ),
       ),
     );
