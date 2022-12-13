@@ -1,6 +1,6 @@
 # challenge_fudo
 
-A new Flutter project.
+A Flutter Challenge for FUDO.
 
 ## Getting Started
 
