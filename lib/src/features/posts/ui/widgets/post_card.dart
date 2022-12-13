@@ -1,4 +1,5 @@
 import 'package:challenge_fudo/src/features/posts/domain/post.dart';
+import 'package:challenge_fudo/src/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
@@ -11,32 +12,44 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Container(
-        height: 50,
-        width: 50,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.deepPurple,
-        ),
-        child: Center(
-          child: Text(
-            post.id.toString(),
-            style: const TextStyle(
-              color: Colors.white,
+    final decoration = BoxDecoration(
+      color: CustomColors.lightPurple,
+      borderRadius: BorderRadius.circular(20),
+    );
+
+    return Card(
+      elevation: 20,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        leading: Container(
+          height: 50,
+          width: 50,
+          decoration: decoration,
+          child: Center(
+            child: Text(
+              "${post.id}",
+              style: const TextStyle(
+                color: Colors.black,
+              ),
             ),
           ),
         ),
-      ),
-      title: Text(
-        post.title,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: Text(
-        post.body,
-        maxLines: 3,
-        overflow: TextOverflow.ellipsis,
+        title: Text(
+          post.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text(
+          post.body,
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }
