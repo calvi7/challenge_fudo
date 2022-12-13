@@ -6,6 +6,7 @@ import 'package:challenge_fudo/src/utils/show_toast.dart';
 import 'package:challenge_fudo/src/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class PostsPage extends StatelessWidget {
   const PostsPage({super.key});
@@ -14,17 +15,19 @@ class PostsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PostsBloc(
-        context.read<PostsRepository>(),
+        GetIt.I<PostsRepository>(),
       )..add(PostsFetched()),
       child: BlocConsumer<PostsBloc, PostsState>(
         listener: _listener,
-        builder: (context, state) => state is PostsLoaded
-            ? PostsLoadedView(posts: state.posts)
-            : state is PostsLoading
-                ? const Center(
-                    child: LoadingWidget(),
-                  )
-                : kEmptyWidget,
+        builder: (context, state) {
+          if (state is PostsLoaded) {
+            return PostsLoadedView(posts: state.posts);
+          } else if (state is PostsLoading) {
+            return const Center(child: LoadingWidget());
+          } else {
+            return kEmptyWidget;
+          }
+        },
       ),
     );
   }

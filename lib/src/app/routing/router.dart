@@ -10,8 +10,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final goRouter = GoRouter(
   navigatorKey: _baseNavigatorKey,
-  // TODO: change initialLocation back to '/'
-  initialLocation: '/posts',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
