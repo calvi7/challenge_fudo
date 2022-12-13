@@ -29,13 +29,11 @@ class App extends StatelessWidget {
         ),
       ],
       child: ThemeModeBuilder(
-        builder: (context, themeMode) {
-          return MaterialApp.router(
-            darkTheme: ThemeData.dark(),
-            themeMode: themeMode,
-            routerConfig: goRouter,
-          );
-        },
+        builder: (context, themeMode) => MaterialApp.router(
+          darkTheme: ThemeData.dark(),
+          themeMode: themeMode,
+          routerConfig: goRouter,
+        ),
       ),
     );
   }
