@@ -1,11 +1,11 @@
-import 'package:bloc/bloc.dart';
 import 'package:challenge_fudo/src/features/auth/data/auth_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   AuthBloc(this._repository) : super(const AuthInitial(false)) {
     on<AuthLoginAttempted>(_onLoginAttempted);
     on<AuthUserLoggedOut>(_onUserLogout);
@@ -51,5 +51,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _onErrorOccurred(AuthErrorOccurred event, Emitter<AuthState> emit) {
     emit(AuthError(event.message));
     emit(AuthInitial(state.isAuthenticated));
+  }
+
+  @override
+  AuthState? fromJson(Map<String, dynamic> json) {
+    final isAuthenticated = json['isAuthenticated'] as bool;
+    if (isAuthenticated) {
+      return const UserAuthenticated();
+    }
+    return const AuthInitial(false);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) {
+    return {
+      'isAuthenticated': state.isAuthenticated,
+    };
   }
 }
