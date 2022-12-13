@@ -11,9 +11,9 @@ class ThemeModeSwitch extends StatelessWidget {
       builder: (context, state) {
         return IconButton(
           onPressed: () => context.read<ThemeBloc>().add(ThemeModeToggled()),
-          icon: state == ThemeMode.light
-              ? const Icon(Icons.light_mode)
-              : const Icon(Icons.dark_mode),
+          icon: state == ThemeMode.dark
+              ? const Icon(Icons.dark_mode)
+              : const Icon(Icons.light_mode),
         );
       },
     );
