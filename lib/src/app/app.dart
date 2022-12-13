@@ -17,13 +17,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: postsRepository,
-      child: BlocProvider(
-        create: (context) => AuthBloc(authRepository),
-        child: MaterialApp.router(
-          routerConfig: goRouter,
-        ),
+    return BlocProvider(
+      create: (context) => AuthBloc(authRepository),
+      child: MaterialApp.router(
+        routerConfig: goRouter,
       ),
     );
   }

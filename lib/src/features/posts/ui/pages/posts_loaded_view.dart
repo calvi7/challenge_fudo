@@ -1,5 +1,5 @@
 import 'package:challenge_fudo/src/features/posts/domain/post.dart';
-import 'package:challenge_fudo/src/features/posts/ui/pages/post_card.dart';
+import 'package:challenge_fudo/src/features/posts/ui/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 
 class PostsLoadedView extends StatelessWidget {
