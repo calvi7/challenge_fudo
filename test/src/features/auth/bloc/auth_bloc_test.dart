@@ -3,11 +3,18 @@ import 'package:challenge_fudo/src/features/auth/bloc/auth_bloc.dart';
 import 'package:challenge_fudo/src/features/auth/data/auth_repository.dart';
 import 'package:challenge_fudo/src/utils/durations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+
+import '../../theme/bloc/theme_bloc_test.dart';
 
 void main() {
   group(
     "AuthBloc",
     () {
+      setUp(() {
+        HydratedBloc.storage = MockStorage();
+      });
+
       blocTest(
         'emits [] when nothing is added.',
         build: () => AuthBloc(AuthRepository()),
