@@ -17,38 +17,43 @@ class PostCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
     );
 
-    return Card(
-      elevation: 20,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        leading: Container(
-          height: 50,
-          width: 50,
-          decoration: decoration,
-          child: Center(
-            child: Text(
-              "${post.id}",
-              style: const TextStyle(
-                color: Colors.black,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 800),
+      child: Card(
+        elevation: 20,
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: ListTile(
+            leading: Container(
+              height: 50,
+              width: 50,
+              decoration: decoration,
+              child: Center(
+                child: Text(
+                  "${post.id}",
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
               ),
             ),
+            title: Text(
+              post.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              post.body,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
-        title: Text(
-          post.title,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Text(
-          post.body,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
         ),
       ),
     );

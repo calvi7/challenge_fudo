@@ -1,6 +1,7 @@
 import 'package:challenge_fudo/src/features/auth/bloc/auth_bloc.dart';
 import 'package:challenge_fudo/src/features/auth/ui/widgets/login_title.dart';
 import 'package:challenge_fudo/src/shared_widgets/input_box.dart';
+import 'package:challenge_fudo/src/shared_widgets/solid_button.dart';
 import 'package:challenge_fudo/src/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,33 +29,45 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const LoginTitle(title: "FUDO"),
+        kVerticalDivider,
+        kVerticalDivider,
         Column(
           children: [
             InputBox(
               controller: userController,
               inputType: TextInputType.emailAddress,
+              hint: "Email address",
+              onSubmit: (_) => _attemptLogin(context),
             ),
             kVerticalDivider,
             InputBox(
+              hint: "Password",
               controller: passController,
-              obscure: true,
+              isPassword: true,
+              onSubmit: (_) => _attemptLogin(context),
             ),
             kVerticalDivider,
           ],
         ),
-        ElevatedButton(
-          onPressed: () => context.read<AuthBloc>().add(
-                AuthLoginAttempted(
-                  username: userController.text,
-                  password: passController.text,
-                ),
-              ),
-          child: const Text("LOGIN"),
-        )
+        kVerticalDivider,
+        kVerticalDivider,
+        SolidButton(
+          onPressed: () => _attemptLogin(context),
+          content: "Sign in",
+        ),
       ],
     );
+  }
+
+  void _attemptLogin(BuildContext context) {
+    context.read<AuthBloc>().add(
+          AuthLoginAttempted(
+            username: userController.text,
+            password: passController.text,
+          ),
+        );
   }
 }

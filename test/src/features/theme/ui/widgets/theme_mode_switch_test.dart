@@ -17,36 +17,63 @@ void main() {
   });
 
   Widget buildWidget() => MaterialApp(
-        themeMode: bloc.state,
-        darkTheme: ThemeData.dark(),
         home: Material(
-          child: BlocProvider.value(
+          child: BlocProvider<ThemeBloc>.value(
             value: bloc,
             child: const ThemeModeSwitch(),
           ),
         ),
       );
 
+  Widget buildWidgetAndBloc() => MaterialApp(
+        home: Material(
+          child: BlocProvider<ThemeBloc>(
+            create: (context) => ThemeBloc(),
+            child: const ThemeModeSwitch(),
+          ),
+        ),
+      );
+
+  Finder findLightIcon() => find.byIcon(Icons.light_mode);
+  Finder findDarkIcon() => find.byIcon(Icons.dark_mode);
+
   group("ThemeModeSwitch...", () {
     testWidgets(
-      "can toggle icon",
-      (WidgetTester tester) async {
+      'initial button is light',
+      (tester) async {
         await tester.pumpWidget(buildWidget());
-        final findLightIcon = find.byIcon(Icons.light_mode);
-        final findDarkIcon = find.byIcon(Icons.dark_mode);
-
-        expect(findLightIcon, findsOneWidget);
-        expect(findDarkIcon, findsNothing);
-
+        expect(findLightIcon(), findsOneWidget);
+        expect(findDarkIcon(), findsNothing);
         expect(bloc.state, equals(ThemeMode.light));
+      },
+    );
 
-        await tester.tap(find.byType(ThemeModeSwitch));
+    testWidgets(
+      'initial button is dark when ThemeBloc\'s theme is dark',
+      (tester) async {
+        bloc.add(ThemeModeToggled());
+        await tester.pumpWidget(buildWidget());
+        expect(findDarkIcon(), findsOneWidget);
+        expect(findLightIcon(), findsNothing);
+        expect(bloc.state, equals(ThemeMode.dark));
+      },
+    );
+
+    testWidgets(
+      "can toggle icon",
+      (tester) async {
+        /// We use a different bloc, since the tester has issues when the bloc
+        /// is created previously.
+        await tester.pumpWidget(buildWidgetAndBloc());
+
+        expect(findLightIcon(), findsOneWidget);
+        expect(findDarkIcon(), findsNothing);
+
+        await tester.tap(findLightIcon());
         await tester.pumpAndSettle();
 
-        // TODO: check that the icon changes
-
-        /// bloc changes state correctly
-        expect(bloc.state, equals(ThemeMode.dark));
+        expect(findLightIcon(), findsNothing);
+        expect(findDarkIcon(), findsOneWidget);
       },
     );
   });

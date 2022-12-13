@@ -6,6 +6,9 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const WaveDots(size: 50, color: Colors.black87);
+    return WaveDots(
+      size: 50,
+      color: Theme.of(context).colorScheme.inverseSurface,
+    );
   }
 }
