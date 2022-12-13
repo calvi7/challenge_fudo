@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
-    Key? key,
+    super.key,
     required this.post,
-  }) : super(key: key);
+  });
 
   final Post post;
 
