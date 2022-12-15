@@ -1,7 +1,6 @@
 import 'package:challenge_fudo/src/app/app.dart';
 import 'package:challenge_fudo/src/data/dependency_injection.dart';
 import 'package:challenge_fudo/src/features/auth/data/auth_repository.dart';
-import 'package:challenge_fudo/src/features/posts/data/posts_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -21,7 +20,6 @@ Future<void> main() async {
   runApp(
     App(
       authRepository: GetIt.I<AuthRepository>(),
-      postsRepository: GetIt.I<PostsRepository>(),
     ),
   );
 }
