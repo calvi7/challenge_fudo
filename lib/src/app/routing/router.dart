@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:challenge_fudo/src/features/auth/bloc/auth_bloc.dart';
 import 'package:challenge_fudo/src/features/auth/ui/pages/login_page.dart';
 import 'package:challenge_fudo/src/features/posts/ui/pages/posts_page.dart';
+import 'package:challenge_fudo/src/features/users/ui/pages/users_page.dart';
 import 'package:challenge_fudo/src/shared_widgets/scaffold_with_bottom_navbar.dart';
-import 'package:challenge_fudo/src/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +40,7 @@ final goRouter = GoRouter(
           redirect: rerouteIfUnauthorized,
           path: '/users',
           pageBuilder: (context, state) => const NoTransitionPage(
-            child: kEmptyWidget,
+            child: UsersPage(),
           ),
         ),
         GoRoute(
