@@ -22,15 +22,51 @@ class UsersLoadedView extends StatelessWidget {
       endDrawer: const AppEndDrawer(),
       body: Material(
         textStyle: const TextStyle(color: Colors.white),
-        child: ListView.separated(
-          separatorBuilder: (context, index) => kVerticalDivider,
-          itemBuilder: (context, index) => UserCard(
-            style: ShinyCardStyle.all[index % 4],
-            user: users[index],
-          ),
-          itemCount: users.length,
-        ),
+        child: BuildCardsBasedOnConstraints(users: users),
       ),
+    );
+  }
+}
+
+class BuildCardsBasedOnConstraints extends StatelessWidget {
+  const BuildCardsBasedOnConstraints({super.key, required this.users});
+
+  final List<User> users;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 900) {
+          return ListView.separated(
+            separatorBuilder: (context, index) => kVerticalDivider,
+            itemBuilder: (context, index) => UserCard(
+              style: ShinyCardStyle.all[index % 4],
+              user: users[index],
+            ),
+            itemCount: users.length,
+          );
+        } else {
+          return Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1100),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 3.5,
+                ),
+                itemCount: users.length,
+                itemBuilder: (context, index) => UserCard(
+                  user: users[index],
+                  style: ShinyCardStyle.all[index % 4],
+                ),
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 }
