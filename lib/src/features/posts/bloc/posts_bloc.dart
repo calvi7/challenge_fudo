@@ -12,6 +12,7 @@ class PostsBloc extends HydratedBloc<PostsEvent, PostsState> {
     on<PostsFetched>(_onPostsFetched);
     on<NewPostCreated>(_onNewPostCreated);
     on<PostsRefreshed>(_onPostsRefreshed);
+    on<PostsCleared>(_onPostsCleared);
   }
 
   final PostsRepository _repository;
@@ -37,11 +38,10 @@ class PostsBloc extends HydratedBloc<PostsEvent, PostsState> {
     final posts = _getPostsFromState(state);
     final post = event.post;
     try {
+      final newPosts = [...posts, post];
       emit(const PostsLoading());
       await _repository.createPost(event.post);
       emit(const PostsNotification('Post created successfully!'));
-
-      final newPosts = [...posts, post];
       emit(PostsLoaded(newPosts));
     } on PostCreationException {
       emit(const PostsError("Couldn't create the post. Try again later."));
@@ -50,10 +50,6 @@ class PostsBloc extends HydratedBloc<PostsEvent, PostsState> {
       emit(PostsError(e.toString()));
       emit(PostsLoaded(posts));
     }
-  }
-
-  List<Post> _getPostsFromState(PostsState state) {
-    return state is PostsLoaded ? state.posts : const <Post>[];
   }
 
   Future<void> _onPostsRefreshed(
@@ -69,11 +65,19 @@ class PostsBloc extends HydratedBloc<PostsEvent, PostsState> {
     }
   }
 
+  void _onPostsCleared(PostsCleared event, Emitter<PostsState> emit) {
+    emit(const PostsLoaded([]));
+  }
+
+  List<Post> _getPostsFromState(PostsState state) {
+    return state is PostsLoaded ? state.posts : const <Post>[];
+  }
+
   @override
   PostsState? fromJson(Map<String, dynamic> json) {
     final postList = json['posts'];
 
-    if (postList.isNotEmpty) {
+    if (postList != null) {
       final List<Post> posts = [];
 
       for (final value in postList) {
@@ -88,7 +92,7 @@ class PostsBloc extends HydratedBloc<PostsEvent, PostsState> {
 
   @override
   Map<String, dynamic>? toJson(PostsState state) {
-    final posts = state is PostsLoaded ? state.posts : const <Post>[];
+    final posts = _getPostsFromState(state);
 
     return {
       'posts': posts.map((e) => e.toMap()).toList(),

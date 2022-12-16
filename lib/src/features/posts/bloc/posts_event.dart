@@ -20,3 +20,8 @@ class PostsRefreshed extends PostsEvent {
   @override
   List<Object?> get props => [];
 }
+
+class PostsCleared extends PostsEvent {
+  @override
+  List<Object?> get props => [];
+}

@@ -67,10 +67,9 @@ class _NewPostPageState extends State<NewPostPage> {
 
   void _listener() => setState(() {});
 
-  void _blocListener(BuildContext context, PostsState state) {
-    if (state is PostsLoaded) {
+  Future<void> _blocListener(BuildContext context, PostsState state) async {
+    if (state is PostsNotification) {
       context.pop();
-    } else if (state is PostsNotification) {
       showSuccessToast(context, state.message);
     } else if (state is PostsError) {
       showErrorToast(context, state.message);
@@ -123,7 +122,7 @@ class NewPostBody extends StatelessWidget {
           controller: bodyController,
           maxLines: 10,
           minLines: 10,
-          hint: "Body of your post",
+          hint: "Write something ...",
         ),
       ],
     );

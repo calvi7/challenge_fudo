@@ -19,14 +19,7 @@ final goRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      redirect: (context, state) {
-        final isAuthenticated = context.read<AuthBloc>().state.isAuthenticated;
-
-        if (isAuthenticated) {
-          return '/posts';
-        }
-        return '/';
-      },
+      redirect: rerouteIfAuthorized,
       pageBuilder: (context, state) => const MaterialPage(
         child: LoginPage(),
       ),
@@ -75,4 +68,14 @@ FutureOr<String?> rerouteIfUnauthorized(
   }
 
   return null;
+}
+
+FutureOr<String?> rerouteIfAuthorized(
+    BuildContext context, GoRouterState state) {
+  final isAuthenticated = context.read<AuthBloc>().state.isAuthenticated;
+
+  if (isAuthenticated) {
+    return '/posts';
+  }
+  return '/';
 }
