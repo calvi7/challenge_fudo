@@ -37,25 +37,3 @@ class ShinyCard extends StatelessWidget {
     );
   }
 }
-
-class DecorationCircle extends StatelessWidget {
-  const DecorationCircle({
-    super.key,
-    required this.diameter,
-    required this.color,
-  });
-
-  final double diameter;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: diameter,
-      width: diameter,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-}

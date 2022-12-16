@@ -35,6 +35,10 @@ class PostsPage extends StatelessWidget {
   void _listener(context, state) {
     if (state is PostsError) {
       showErrorToast(context, state.message);
+    } else if (state is PostsNotification) {
+      showSuccessToast(context, state.message);
+    } else if (state is PostsError) {
+      showErrorToast(context, state.message);
     }
   }
 }

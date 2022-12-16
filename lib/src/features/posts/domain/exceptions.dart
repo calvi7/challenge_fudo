@@ -1,0 +1,1 @@
+class PostCreationException implements Exception {}

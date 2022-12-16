@@ -19,4 +19,8 @@ class PostsRepository {
     final response = await _service.getPost(id);
     return Post.fromJson(response);
   }
+
+  Future<void> createPost(Post post) async {
+    await _service.createPost(post);
+  }
 }
