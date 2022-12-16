@@ -10,6 +10,7 @@ class InputBox extends StatefulWidget {
     this.maxLines,
     this.minLines,
     this.labelText,
+
   });
 
   final TextEditingController controller;
@@ -19,6 +20,7 @@ class InputBox extends StatefulWidget {
   final int? maxLines;
   final int? minLines;
   final String? labelText;
+
 
   @override
   State<InputBox> createState() => _InputBoxState();

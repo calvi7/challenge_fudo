@@ -23,6 +23,7 @@ class UsersLoadedView extends StatelessWidget {
       body: Material(
         textStyle: const TextStyle(color: Colors.white),
         child: BuildCardsBasedOnConstraints(users: users),
+
       ),
     );
   }
@@ -71,3 +72,4 @@ class BuildCardsBasedOnConstraints extends StatelessWidget {
     );
   }
 }
+
