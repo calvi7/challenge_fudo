@@ -27,6 +27,7 @@ class App extends StatelessWidget {
       ],
       child: ThemeModeBuilder(
         builder: (context, themeMode) => MaterialApp.router(
+          onGenerateTitle: (context) => "Fudo Challenge - Calvi",
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData.dark(),
           themeMode: themeMode,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:challenge_fudo/src/features/auth/bloc/auth_bloc.dart';
 import 'package:challenge_fudo/src/features/auth/ui/pages/login_page.dart';
+import 'package:challenge_fudo/src/features/posts/ui/pages/new_post_page.dart';
 import 'package:challenge_fudo/src/features/posts/ui/pages/posts_page.dart';
 import 'package:challenge_fudo/src/features/users/ui/pages/users_page.dart';
 import 'package:challenge_fudo/src/shared_widgets/scaffold_with_bottom_navbar.dart';
@@ -49,6 +50,14 @@ final goRouter = GoRouter(
           pageBuilder: (context, state) => const NoTransitionPage(
             child: PostsPage(),
           ),
+          routes: [
+            GoRoute(
+              path: 'new',
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: NewPostPage(),
+              ),
+            ),
+          ],
         ),
       ],
     ),

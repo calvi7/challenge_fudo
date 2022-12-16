@@ -7,12 +7,20 @@ class InputBox extends StatefulWidget {
     this.isPassword = false,
     this.inputType,
     this.hint,
+    this.maxLines,
+    this.minLines,
+    this.labelText,
+
   });
 
   final TextEditingController controller;
   final bool isPassword;
   final TextInputType? inputType;
   final String? hint;
+  final int? maxLines;
+  final int? minLines;
+  final String? labelText;
+
 
   @override
   State<InputBox> createState() => _InputBoxState();
@@ -38,14 +46,11 @@ class _InputBoxState extends State<InputBox> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: TextFormField(
+          minLines: widget.minLines,
+          maxLines: widget.maxLines ?? 1,
           controller: widget.controller,
           decoration: InputDecoration(
-            suffixIcon: widget.isPassword
-                ? PasswordIcon(
-                    obscure: _obscure,
-                    onPressed: toggleObscure,
-                  )
-                : null,
+            labelText: widget.labelText,
             fillColor: Colors.white,
             filled: true,
             border: OutlineInputBorder(
@@ -53,6 +58,21 @@ class _InputBoxState extends State<InputBox> {
               borderSide: const BorderSide(color: Colors.red),
             ),
             hintText: widget.hint,
+            alignLabelWithHint: true,
+            hintStyle: const TextStyle(
+              color: Colors.black,
+            ),
+            suffixIcon: widget.isPassword
+                ? PasswordIcon(
+                    obscure: _obscure,
+                    onPressed: toggleObscure,
+                  )
+                : null,
+            floatingLabelStyle: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
           obscureText: _obscure,
           style: const TextStyle(color: Colors.black),
