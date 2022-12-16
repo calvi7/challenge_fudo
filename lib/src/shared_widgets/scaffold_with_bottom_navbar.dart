@@ -44,6 +44,11 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
       child: Scaffold(
         body: widget.body,
         bottomNavigationBar: BottomNavigationBar(
+          selectedLabelStyle: const TextStyle(fontSize: 14),
+          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+          elevation: 30,
+          mouseCursor: MouseCursor.defer,
+          enableFeedback: true,
           currentIndex: _currentIndex,
           onTap: (value) => _onItemTapped(context, value),
           items: const [
@@ -53,7 +58,7 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
             ),
             BottomNavigationBarItem(
               label: "Posts",
-              icon: Icon(Icons.person),
+              icon: Icon(Icons.post_add),
             ),
           ],
         ),

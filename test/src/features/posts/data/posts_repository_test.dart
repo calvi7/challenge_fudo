@@ -1,5 +1,7 @@
 import 'package:challenge_fudo/src/features/posts/data/posts_service.dart';
 import 'package:challenge_fudo/src/features/posts/data/posts_repository.dart';
+import 'package:challenge_fudo/src/features/posts/domain/exceptions.dart';
+import 'package:challenge_fudo/src/features/posts/domain/post.dart';
 import 'package:challenge_fudo/src/utils/durations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -60,6 +62,8 @@ void main() {
   });
 
   group("PostsRepository ...", () {
+    const post = Post(userId: 11, id: 101, title: "title", body: "body");
+
     test("get posts", () async {
       final posts = await sut.getPosts();
       final first = posts.first;
@@ -83,6 +87,23 @@ void main() {
       expect(post.userId, equals(1));
       expect(post.title, equals("Test 1"));
       expect(post.body, equals("Test 1 body"));
+    });
+
+    test("create post", () async {
+      when(() => mockService.createPost(post)).thenAnswer((_) async {});
+
+      final future = sut.createPost(post);
+
+      expect(() async => await future, isNot(isA<PostCreationException>()));
+    });
+
+    test("create post exception", () async {
+      when(() => mockService.createPost(post)).thenAnswer(
+        (_) async => throw PostCreationException(),
+      );
+
+      final future = sut.createPost(post);
+      expect(() async => await future, throwsA(isA<PostCreationException>()));
     });
   });
 }

@@ -39,6 +39,7 @@ class BuildCardsBasedOnConstraints extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth < 900) {
           return ListView.separated(
+            physics: const BouncingScrollPhysics(),
             separatorBuilder: (context, index) => kVerticalDivider,
             itemBuilder: (context, index) => UserCard(
               style: ShinyCardStyle.all[index % 4],

@@ -11,3 +11,15 @@ Future<void> showErrorToast(BuildContext context, String message) async {
     ),
   );
 }
+
+Future<void> showSuccessToast(BuildContext context, String message) async {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      elevation: 20,
+      margin: const EdgeInsets.all(10),
+      behavior: SnackBarBehavior.floating,
+      content: Text(message),
+      backgroundColor: Colors.green,
+    ),
+  );
+}
